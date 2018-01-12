@@ -1,0 +1,7 @@
+{
+token : "token",
+status :"Bot game status",
+prefix : "Select_a_prefix",
+description : "This bot is amazing!",
+bot_owner : "yourid"
+}

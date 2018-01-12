@@ -1,5 +1,0 @@
-token = "token"
-status = "Bot game status"
-prefix = "+"
-description = "This bot is amazing!"
-bot_owner = "yourid"
