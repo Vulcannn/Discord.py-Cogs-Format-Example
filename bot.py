@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3.5
 import discord
 import asyncio
@@ -13,7 +14,7 @@ except Exception as e:
     print('There was an error: {}'.format(e))
 
 bot = commands.Bot(command_prefix=prefix, description = description)
-ext_commands = ["main"]
+ext_commands = ["main"] 
 
 
 @bot.event
@@ -21,15 +22,31 @@ async def on_ready():
     
 
     print("Bot Logged in!")
-    owner = await bot.get_user_info(config['oner_id'])
-    await bot.send_message(owner, "Bot has came online!")
-    await bot.change_presence(game=(discord.Game(name=status)))
-    for i in range(len(ext_commands)+1):
-        bot.load_extension(ext_commands[i-1])
-
+    try:
+        
+        owner = await bot.get_user_info(config["owner_id"])
+        await bot.send_message(owner, "Bot has came online!")
+    except Exception as e:
+        print("Could not notify bot owner of startup: {}".format(e))
+        pass
+   
+    try:
+        
+        await bot.change_presence(game=(discord.Game(name=status)))
+    except Exception as e:
+        print("Could not change bot presence: {}".format(e))
+        pass
+        
+    try:
+        
+        for i in range(len(ext_commands)+1):
+            bot.load_extension(ext_commands[i-1])
+    except Exception as e:
+        print("Could not load cogs: {}".format(e))
+        pass  
 
 
 def load_cogs(bot):
     defaults = ("main")
 
-bot.run(config['token'])
+bot.run(config["token"])
